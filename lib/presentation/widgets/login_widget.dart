@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
+import '../../domain/use_cases/login_use_case.dart';
+import '../../domain/entities/user.dart';
 
 class LoginWidget extends StatelessWidget {
+  final LoginUseCase loginUseCase;
+
+  LoginWidget({required this.loginUseCase});
+
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -32,6 +41,7 @@ class LoginWidget extends StatelessWidget {
                     ),
                   ),
                   child: TextField(
+                    controller: _emailController,
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: "Email or Phone number",
@@ -42,6 +52,7 @@ class LoginWidget extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.all(8.0),
                   child: TextField(
+                    controller: _passwordController,
                     obscureText: true,
                     decoration: InputDecoration(
                       border: InputBorder.none,
@@ -69,9 +80,21 @@ class LoginWidget extends StatelessWidget {
               ),
             ),
             child: Center(
-              child: Text(
-                "Login",
-                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              child: ElevatedButton(
+                onPressed: () async {
+                  User user = await loginUseCase(
+                    _emailController.text,
+                    _passwordController.text,
+                  );
+                  print('User authenticated: ${user.email}');
+                },
+                child: Text(
+                  "Login",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ),
           ),

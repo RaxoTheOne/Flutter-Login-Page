@@ -1,8 +1,13 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import '../../domain/use_cases/login_use_case.dart';
 import '../widgets/login_widget.dart';
 
 class HomePage extends StatelessWidget {
+  final LoginUseCase loginUseCase;
+
+  HomePage({required this.loginUseCase});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,7 +95,7 @@ class HomePage extends StatelessWidget {
               ),
               Padding(
                 padding: EdgeInsets.all(30.0),
-                child: LoginWidget(),
+                child: LoginWidget(loginUseCase: loginUseCase),
               ),
             ],
           ),
