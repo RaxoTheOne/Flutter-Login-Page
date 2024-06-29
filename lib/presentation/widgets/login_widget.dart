@@ -79,19 +79,26 @@ class LoginWidget extends StatelessWidget {
                 ],
               ),
             ),
-            child: Center(
-              child: ElevatedButton(
-                onPressed: () async {
-                  User user = await loginUseCase(
-                    _emailController.text,
-                    _passwordController.text,
-                  );
-                  print('User authenticated: ${user.email}');
-                },
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.transparent, // Transparent background
+                shadowColor: Colors.transparent, // No shadow
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10), // Match container's border radius
+                ),
+              ),
+              onPressed: () async {
+                User user = await loginUseCase(
+                  _emailController.text,
+                  _passwordController.text,
+                );
+                print('User authenticated: ${user.email}');
+              },
+              child: Center(
                 child: Text(
                   "Login",
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Color.fromRGBO(143, 148, 251, 1), // Purple text color
                     fontWeight: FontWeight.bold,
                   ),
                 ),
